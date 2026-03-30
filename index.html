@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCR Deals — Manchester's Best Student Deals</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bee-yellow: #FFCB00;
+      --bee-dark:   #1A1A1A;
+      --bee-red:    #E63946;
+      --bee-teal:   #2BBFAE;
+      --bee-purple: #6B4FBB;
+      --bee-orange: #FF6B35;
+      --card-bg:    #FFFFFF;
+      --page-bg:    #F4F1EC;
+      --text-main:  #1A1A1A;
+      --text-muted: #666666;
+      --radius:     14px;
+      --shadow:     0 4px 24px rgba(0,0,0,0.10);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--page-bg);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--bee-dark);
+      color: #fff;
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .logo-bee {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .logo-text span { color: var(--bee-yellow); }
+    .header-tag {
+      background: var(--bee-yellow);
+      color: var(--bee-dark);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #333;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .live-dot {
+      width: 8px; height: 8px;
+      background: #44ee88;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--bee-dark) 0%, #2d1f5e 100%);
+      color: #fff;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '🐝';
+      position: absolute;
+      font-size: 16rem;
+      opacity: 0.04;
+      top: -3rem;
+      right: -2rem;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--bee-yellow);
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 span { color: var(--bee-yellow); }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 520px;
+      margin: 0 auto 1.8rem;
+    }
+
+    /* ── SEARCH BAR ── */
+    .search-wrap {
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 14px 50px 14px 18px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .search-icon {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--bee-yellow);
+      padding: 0.75rem 1.5rem;
+    }
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--bee-dark);
+    }
+    .stat-icon { font-size: 1.1rem; }
+
+    /* ── MAIN LAYOUT ── */
+    .main-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ── DAY SELECTOR ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .day-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 1.75rem;
+      scrollbar-width: none;
+    }
+    .day-nav::-webkit-scrollbar { display: none; }
+    .day-btn {
+      flex-shrink: 0;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 2px solid #ddd;
+      background: var(--card-bg);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .day-btn .day-abbr { font-size: 0.75rem; font-weight: 600; }
+    .day-btn .deal-count {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .day-btn:hover {
+      border-color: var(--bee-yellow);
+      color: var(--bee-dark);
+    }
+    .day-btn.active {
+      background: var(--bee-dark);
+      border-color: var(--bee-dark);
+      color: #fff;
+    }
+    .day-btn.today-btn .day-abbr::after {
+      content: ' •';
+      color: var(--bee-yellow);
+    }
+    .day-btn.active .deal-count { color: rgba(255,255,255,0.6); }
+
+    /* ── CATEGORY FILTERS ── */
+    .cat-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+    .cat-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .cat-btn:hover { background: #f0f0f0; color: var(--text-main); }
+    .cat-btn.active { background: var(--bee-yellow); color: var(--bee-dark); }
+
+    /* ── RESULTS HEADER ── */
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .results-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+    }
+    .results-count {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ── DEAL CARDS GRID ── */
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── DEAL CARD ── */
+    .deal-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+    }
+    .deal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    .deal-card.hidden { display: none; }
+
+    /* card accent strip */
+    .card-accent {
+      height: 6px;
+    }
+    .cat-food    { background: var(--bee-orange); }
+    .cat-drinks  { background: var(--bee-teal); }
+    .cat-nightlife { background: var(--bee-purple); }
+    .cat-entertainment { background: var(--bee-red); }
+    .cat-shopping { background: var(--bee-yellow); }
+
+    .card-body { padding: 1.1rem 1.25rem; flex: 1; }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+    .card-category {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+    .bg-food    { background: #FFF0E6; color: var(--bee-orange); }
+    .bg-drinks  { background: #E6FAF8; color: var(--bee-teal); }
+    .bg-nightlife { background: #F0EBFF; color: var(--bee-purple); }
+    .bg-entertainment { background: #FFE8E9; color: var(--bee-red); }
+    .bg-shopping { background: #FFFBE6; color: #9B7A00; }
+
+    .savings-badge {
+      background: var(--bee-yellow);
+      color: var(--bee-dark);
+      font-size: 0.78rem;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .card-venue {
+      font-size: 1.05rem;
+      font-weight: 900;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+    .card-deal {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.7rem;
+      line-height: 1.4;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 0.5rem;
+    }
+    .meta-pill {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #F5F5F5;
+      padding: 4px 9px;
+      border-radius: 20px;
+    }
+
+    .card-footer {
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid #F0F0F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-location {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .student-tag {
+      background: #1A1A1A;
+      color: var(--bee-yellow);
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── HOT DEAL INDICATOR ── */
+    .hot-flag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--bee-red);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+      display: none;
+    }
+    .no-results.show { display: block; }
+    .no-results-emoji { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* ── PROMO BANNER ── */
+    .promo-banner {
+      background: linear-gradient(135deg, #6B4FBB, #2BBFAE);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      color: #fff;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .promo-emoji { font-size: 2.5rem; }
+    .promo-text h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 0.25rem; }
+    .promo-text p { font-size: 0.88rem; opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bee-dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--bee-yellow); text-decoration: none; }
+    .footer-bee { font-size: 2rem; margin-bottom: 0.5rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .header-tag { display: none; }
+      .deals-grid { grid-template-columns: 1fr; }
+      .hero { padding: 2rem 1rem 2rem; }
+      .promo-banner { flex-direction: column; text-align: center; }
+      .stats-inner { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-bee">🐝</span>
+      <span class="logo-text">MCR<span>Deals</span></span>
+    </a>
+    <span class="header-tag">Student Edition</span>
+    <div class="header-right">
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        Live deals
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-eyebrow">🏙️ Manchester City Centre</p>
+  <h1>Save big.<br><span>Eat, drink & play</span> for less.</h1>
+  <p class="hero-sub">The best student deals across Manchester — updated daily. From happy hours to club nights, we've got you sorted.</p>
+  <div class="search-wrap">
+    <input class="search-input" type="text" id="searchInput" placeholder="Search venues, deals…" />
+    <span class="search-icon">🔍</span>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><span class="stat-icon">🎯</span> <span id="totalDeals">0</span> active deals today</div>
+    <div class="stat"><span class="stat-icon">🎓</span> Student ID unlocks extra savings</div>
+    <div class="stat"><span class="stat-icon">📍</span> All Manchester city centre</div>
+    <div class="stat"><span class="stat-icon">♻️</span> Updated every Monday</div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<main class="main-wrap">
+
+  <!-- Promo banner -->
+  <div class="promo-banner">
+    <span class="promo-emoji">🎓</span>
+    <div class="promo-text">
+      <h3>Bring your student ID — it's your golden ticket</h3>
+      <p>Many venues below offer extra discounts with a valid student card, TOTUM, UNiDAYS or Student Beans. Always ask before you pay!</p>
+    </div>
+  </div>
+
+  <!-- Day nav -->
+  <p class="section-label">Browse by day</p>
+  <nav class="day-nav" id="dayNav">
+    <button class="day-btn" data-day="monday">
+      <span>Monday</span>
+      <span class="day-abbr">Mon</span>
+      <span class="deal-count" id="count-monday">0 deals</span>
+    </button>
+    <button class="day-btn" data-day="tuesday">
+      <span>Tuesday</span>
+      <span class="day-abbr">Tue</span>
+      <span class="deal-count" id="count-tuesday">0 deals</span>
+    </button>
+    <button class="day-btn" data-day="wednesday">
+      <span>Wednesday</span>
+      <span class="day-abbr">Wed</span>
+      <span class="deal-count" id="count-wednesday">0 deals</span>
+    </button>
+    <button class="day-btn" data-day="thursday">
+      <span>Thursday</span>
+      <span class="day-abbr">Thu</span>
+      <span class="deal-count" id="count-thursday">0 deals</span>
+    </button>
+    <button class="day-btn" data-day="friday">
+      <span>Friday</span>
+      <span class="day-abbr">Fri</span>
+      <span class="deal-count" id="count-friday">0 deals</span>
+    </button>
+    <button class="day-btn" data-day="saturday">
+      <span>Saturday</span>
+      <span class="day-abbr">Sat</span>
+      <span class="deal-count" id="count-saturday">0 deals</span>
+    </button>
+    <button class="day-btn" data-day="sunday">
+      <span>Sunday</span>
+      <span class="day-abbr">Sun</span>
+      <span class="deal-count" id="count-sunday">0 deals</span>
+    </button>
+  </nav>
+
+  <!-- Category filters -->
+  <div class="cat-filters" id="catFilters">
+    <button class="cat-btn active" data-cat="all">🍽️ All Deals</button>
+    <button class="cat-btn" data-cat="food">🍕 Food</button>
+    <button class="cat-btn" data-cat="drinks">🍹 Drinks</button>
+    <button class="cat-btn" data-cat="nightlife">🎉 Nightlife</button>
+    <button class="cat-btn" data-cat="entertainment">🎯 Entertainment</button>
+    <button class="cat-btn" data-cat="shopping">🛍️ Shopping</button>
+  </div>
+
+  <!-- Results header -->
+  <div class="results-header">
+    <h2 class="results-title" id="resultsTitle">All Deals</h2>
+    <span class="results-count" id="resultsCount"></span>
+  </div>
+
+  <!-- Cards grid -->
+  <div class="deals-grid" id="dealsGrid"></div>
+
+  <!-- No results -->
+  <div class="no-results" id="noResults">
+    <div class="no-results-emoji">🐝</div>
+    <p>No deals found — try a different day or category!</p>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-bee">🐝</div>
+  <p style="color:#fff; font-weight:700; margin-bottom:0.4rem;">MCR Deals — Manchester's Student Deals Hub</p>
+  <p>Deals are sourced from public listings and may change. Always verify with the venue before visiting.<br>
+  Find a deal we're missing? <a href="mailto:hello@mcrdeals.co.uk">Let us know →</a></p>
+</footer>
+
+<script>
+// ── DEAL DATA ──────────────────────────────────────────────────────────────
+const deals = [
+  // ────────── MONDAY ──────────
+  {
+    id: 1,
+    venue: "Factory",
+    deal: "Quids In Monday — FREE entry all night + £1 drinks across all three floors",
+    days: ["monday"],
+    category: "nightlife",
+    time: "From 10pm",
+    location: "Oxford Road",
+    savings: "Free entry",
+    student: false,
+    hot: true
+  },
+  {
+    id: 2,
+    venue: "Cargo",
+    deal: "Monday Madness — £3 student entry, cheap drinks all night for 3,000 capacity party",
+    days: ["monday"],
+    category: "nightlife",
+    time: "From 10pm",
+    location: "Arundel St",
+    savings: "£3 entry",
+    student: true,
+    hot: true
+  },
+  {
+    id: 3,
+    venue: "Crazy Pedro's",
+    deal: "Slice Club — 2 pizza slices + soft drink for £6. Add a beer for just £1 more",
+    days: ["monday","tuesday","wednesday","thursday","friday"],
+    category: "food",
+    time: "12pm – 3pm",
+    location: "Bridge St",
+    savings: "From £6",
+    student: false,
+    hot: false
+  },
+  {
+    id: 4,
+    venue: "Affleck and Brown",
+    deal: "Happy Hour — £4.20 house lager, £6 margaritas, 2-for-£7 Sols, £16 wine bottle, £20 prosecco",
+    days: ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"],
+    category: "drinks",
+    time: "Noon – 7pm",
+    location: "Northern Quarter",
+    savings: "Up to 40% off",
+    student: false,
+    hot: false
+  },
+  {
+    id: 5,
+    venue: "All Bar One",
+    deal: "20% off all food with valid UNiDAYS ID",
+    days: ["sunday","monday","tuesday","wednesday"],
+    category: "food",
+    time: "All day",
+    location: "Town Centre & Trafford Centre",
+    savings: "20% off",
+    student: true,
+    hot: false
+  },
+  {
+    id: 6,
+    venue: "Junkyard Golf",
+    deal: "50% off 9-hole tickets all day + £6 cocktails & £4 pints during student happy hour",
+    days: ["monday","tuesday","wednesday","thursday"],
+    category: "entertainment",
+    time: "All day",
+    location: "Corn Exchange",
+    savings: "50% off",
+    student: true,
+    hot: true
+  },
+
+  // ────────── TUESDAY ──────────
+  {
+    id: 7,
+    venue: "Factory",
+    deal: "Rewind Tuesdays — FREE entry across all 3 floors. Commercial House, R&B, Cheese Pop & House",
+    days: ["tuesday"],
+    category: "nightlife",
+    time: "From 10pm",
+    location: "Oxford Road",
+    savings: "Free entry",
+    student: false,
+    hot: true
+  },
+  {
+    id: 8,
+    venue: "Junction",
+    deal: "Happy Hour — 2 cocktails for £14, bottle of wine £20, Cruzcampo or Guinness for £4",
+    days: ["tuesday","wednesday","thursday","friday"],
+    category: "drinks",
+    time: "Happy hour",
+    location: "City Centre",
+    savings: "From £4",
+    student: false,
+    hot: false
+  },
+  {
+    id: 9,
+    venue: "El Gato Negro",
+    deal: "3 tapas plates for £20 — pick from Manchester's most popular tapas menu",
+    days: ["monday","tuesday","wednesday","thursday","friday"],
+    category: "food",
+    time: "12pm – 5pm",
+    location: "King St",
+    savings: "3 for £20",
+    student: false,
+    hot: false
+  },
+  {
+    id: 10,
+    venue: "Franco Manca",
+    deal: "Sourdough pizza + drinks from £10.45 with valid student ID",
+    days: ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"],
+    category: "food",
+    time: "All day",
+    location: "Piccadilly Gardens / Didsbury",
+    savings: "From £10.45",
+    student: true,
+    hot: false
+  },
+
+  // ────────── WEDNESDAY ──────────
+  {
+    id: 11,
+    venue: "Factory",
+    deal: "Toxic Wednesdays — FREE entry + £1 drinks across all three floors",
+    days: ["wednesday"],
+    category: "nightlife",
+    time: "From 10pm",
+    location: "Oxford Road",
+    savings: "Free + £1 drinks",
+    student: false,
+    hot: true
+  },
+  {
+    id: 12,
+    venue: "Diecast",
+    deal: "40% off all food every Wednesday",
+    days: ["wednesday"],
+    category: "food",
+    time: "4pm – 9pm",
+    location: "Ducie St",
+    savings: "40% off",
+    student: false,
+    hot: true
+  },
+  {
+    id: 13,
+    venue: "Yard and Coop",
+    deal: "FREE wings Wednesday — plus 20% off your total bill with student ID",
+    days: ["wednesday"],
+    category: "food",
+    time: "All day",
+    location: "Church St",
+    savings: "Free wings + 20%",
+    student: true,
+    hot: true
+  },
+  {
+    id: 14,
+    venue: "BrewDog",
+    deal: "Buy one burger, get a second for just £1",
+    days: ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"],
+    category: "food",
+    time: "All day",
+    location: "Manchester City Centre",
+    savings: "BOGOF for £1",
+    student: false,
+    hot: false
+  },
+
+  // ────────── THURSDAY ──────────
+  {
+    id: 15,
+    venue: "Yard and Coop",
+    deal: "20% off your bill Sunday–Thursday with student ID",
+    days: ["thursday","sunday"],
+    category: "food",
+    time: "All day",
+    location: "Church St",
+    savings: "20% off",
+    student: true,
+    hot: false
+  },
+  {
+    id: 16,
+    venue: "Crazy Pedro's",
+    deal: "Happy Hour — 2-4-£12 cocktails, £3 pizza slices, £12.50 whole pizzas",
+    days: ["monday","tuesday","wednesday","thursday","friday"],
+    category: "drinks",
+    time: "5pm – 10pm",
+    location: "Bridge St",
+    savings: "2-4-£12 cocktails",
+    student: false,
+    hot: false
+  },
+  {
+    id: 17,
+    venue: "Lion's Den",
+    deal: "£3.50 pints + any 2 spirits for £6 for students",
+    days: ["thursday","friday","saturday"],
+    category: "drinks",
+    time: "All day",
+    location: "Great Northern Warehouse",
+    savings: "2 spirits £6",
+    student: true,
+    hot: false
+  },
+
+  // ────────── FRIDAY ──────────
+  {
+    id: 18,
+    venue: "Printworks",
+    deal: "Student discount hub — food, drinks, cinema, adventure golf all under one roof with student ID",
+    days: ["friday","saturday","sunday"],
+    category: "entertainment",
+    time: "All day",
+    location: "Withy Grove",
+    savings: "Various",
+    student: true,
+    hot: false
+  },
+  {
+    id: 19,
+    venue: "Stevenson Square Tiki Bar",
+    deal: "Single spirit + mixer £2.49 • Double £3.49 • Zombie cocktail £5",
+    days: ["friday","saturday","sunday","thursday"],
+    category: "drinks",
+    time: "All day",
+    location: "Northern Quarter",
+    savings: "From £2.49",
+    student: false,
+    hot: false
+  },
+
+  // ────────── SATURDAY ──────────
+  {
+    id: 20,
+    venue: "Junkyard Golf",
+    deal: "Unlimited golf all day + £6 cocktails + £4 pints + £3.50 mocktails",
+    days: ["saturday","sunday"],
+    category: "entertainment",
+    time: "All day",
+    location: "Corn Exchange",
+    savings: "Unlimited play",
+    student: false,
+    hot: false
+  },
+
+  // ────────── SUNDAY ──────────
+  {
+    id: 21,
+    venue: "El Gato Negro",
+    deal: "All-day 3 tapas plates for £20 on Sundays (usually weekday lunch only)",
+    days: ["sunday"],
+    category: "food",
+    time: "All day",
+    location: "King St",
+    savings: "3 for £20",
+    student: false,
+    hot: false
+  },
+  {
+    id: 22,
+    venue: "A Vietnamese • Corn Exchange",
+    deal: "15% off your bill with valid student ID",
+    days: ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"],
+    category: "food",
+    time: "All day",
+    location: "Corn Exchange",
+    savings: "15% off",
+    student: true,
+    hot: false
+  },
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+const dayNames = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+const today = dayNames[new Date().getDay()];
+
+let activeDay = today;
+let activeCat = "all";
+let searchQuery = "";
+
+// ── HELPERS ───────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const catLabel = { food:"Food", drinks:"Drinks", nightlife:"Nightlife", entertainment:"Entertainment", shopping:"Shopping" };
+const catEmoji  = { food:"🍕", drinks:"🍹", nightlife:"🎉", entertainment:"🎯", shopping:"🛍️" };
+
+function filteredDeals() {
+  return deals.filter(d => {
+    const dayOk  = d.days.includes(activeDay);
+    const catOk  = activeCat === "all" || d.category === activeCat;
+    const termOk = !searchQuery ||
+      d.venue.toLowerCase().includes(searchQuery) ||
+      d.deal.toLowerCase().includes(searchQuery) ||
+      d.location.toLowerCase().includes(searchQuery);
+    return dayOk && catOk && termOk;
+  });
+}
+
+function dealCountForDay(day) {
+  return deals.filter(d => d.days.includes(day)).length;
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function renderCards() {
+  const list = filteredDeals();
+  const grid = $("dealsGrid");
+  const noRes = $("noResults");
+
+  grid.innerHTML = "";
+
+  if (list.length === 0) {
+    noRes.classList.add("show");
+    $("resultsCount").textContent = "";
+    return;
+  }
+  noRes.classList.remove("show");
+  $("resultsCount").textContent = `${list.length} deal${list.length !== 1 ? "s" : ""} found`;
+  $("totalDeals").textContent = deals.filter(d => d.days.includes(today)).length;
+
+  list.forEach(d => {
+    const card = document.createElement("div");
+    card.className = "deal-card";
+    card.innerHTML = `
+      ${d.hot ? '<span class="hot-flag">🔥 Hot</span>' : ""}
+      <div class="card-accent cat-${d.category}"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="card-category bg-${d.category}">${catEmoji[d.category]} ${catLabel[d.category]}</span>
+          <span class="savings-badge">${d.savings}</span>
+        </div>
+        <div class="card-venue">${d.venue}</div>
+        <div class="card-deal">${d.deal}</div>
+        <div class="card-meta">
+          <span class="meta-pill">🕐 ${d.time}</span>
+          ${d.days.map(day => `<span class="meta-pill">${day.charAt(0).toUpperCase() + day.slice(1)}</span>`).join("")}
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-location">📍 ${d.location}</span>
+        ${d.student ? '<span class="student-tag">🎓 Student ID</span>' : ""}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function updateResultsTitle() {
+  const dayDisplay = activeDay.charAt(0).toUpperCase() + activeDay.slice(1);
+  const isToday = activeDay === today;
+  $("resultsTitle").textContent = isToday
+    ? `Today (${dayDisplay}) Deals`
+    : `${dayDisplay} Deals`;
+}
+
+// ── DAY NAV SETUP ────────────────────────────────────────────────────────
+function setupDayNav() {
+  document.querySelectorAll(".day-btn").forEach(btn => {
+    const day = btn.dataset.day;
+    const count = dealCountForDay(day);
+    const countEl = btn.querySelector(".deal-count");
+    if (countEl) countEl.textContent = `${count} deal${count !== 1 ? "s" : ""}`;
+
+    if (day === today) btn.classList.add("today-btn");
+    if (day === activeDay) btn.classList.add("active");
+
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".day-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeDay = day;
+      updateResultsTitle();
+      renderCards();
+    });
+  });
+}
+
+// ── CATEGORY FILTERS ────────────────────────────────────────────────────
+function setupCatFilters() {
+  document.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeCat = btn.dataset.cat;
+      renderCards();
+    });
+  });
+}
+
+// ── SEARCH ───────────────────────────────────────────────────────────────
+function setupSearch() {
+  $("searchInput").addEventListener("input", e => {
+    searchQuery = e.target.value.toLowerCase().trim();
+    // When searching, clear day filter to search all days
+    if (searchQuery) {
+      // Keep day but show results from all days matching query
+      activeDay = "all-days";
+    } else {
+      activeDay = today;
+      document.querySelectorAll(".day-btn").forEach(b => b.classList.remove("active"));
+      document.querySelector(`[data-day="${today}"]`).classList.add("active");
+    }
+    renderCards();
+  });
+}
+
+// Override filteredDeals for search-across-all-days
+const originalFilter = filteredDeals;
+window.filteredDeals = function() {
+  return deals.filter(d => {
+    const dayOk  = activeDay === "all-days" ? true : d.days.includes(activeDay);
+    const catOk  = activeCat === "all" || d.category === activeCat;
+    const termOk = !searchQuery ||
+      d.venue.toLowerCase().includes(searchQuery) ||
+      d.deal.toLowerCase().includes(searchQuery) ||
+      d.location.toLowerCase().includes(searchQuery);
+    return dayOk && catOk && termOk;
+  });
+};
+window.renderCards = function() {
+  const list = window.filteredDeals();
+  const grid = $("dealsGrid");
+  const noRes = $("noResults");
+
+  grid.innerHTML = "";
+
+  if (list.length === 0) {
+    noRes.classList.add("show");
+    $("resultsCount").textContent = "";
+    return;
+  }
+  noRes.classList.remove("show");
+  $("resultsCount").textContent = `${list.length} deal${list.length !== 1 ? "s" : ""} found`;
+  $("totalDeals").textContent = deals.filter(d => d.days.includes(today)).length;
+
+  list.forEach(d => {
+    const card = document.createElement("div");
+    card.className = "deal-card";
+    card.innerHTML = `
+      ${d.hot ? '<span class="hot-flag">🔥 Hot</span>' : ""}
+      <div class="card-accent cat-${d.category}"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="card-category bg-${d.category}">${catEmoji[d.category]} ${catLabel[d.category]}</span>
+          <span class="savings-badge">${d.savings}</span>
+        </div>
+        <div class="card-venue">${d.venue}</div>
+        <div class="card-deal">${d.deal}</div>
+        <div class="card-meta">
+          <span class="meta-pill">🕐 ${d.time}</span>
+          ${d.days.map(day => `<span class="meta-pill">${day.charAt(0).toUpperCase() + day.slice(1)}</span>`).join("")}
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-location">📍 ${d.location}</span>
+        ${d.student ? '<span class="student-tag">🎓 Student ID</span>' : ""}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+};
+
+// Override search to use window.renderCards
+$("searchInput").addEventListener("input", e => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  if (searchQuery) {
+    activeDay = "all-days";
+    document.querySelectorAll(".day-btn").forEach(b => b.classList.remove("active"));
+  } else {
+    activeDay = today;
+    document.querySelectorAll(".day-btn").forEach(b => b.classList.remove("active"));
+    const todayBtn = document.querySelector(`[data-day="${today}"]`);
+    if (todayBtn) todayBtn.classList.add("active");
+  }
+  window.renderCards();
+});
+
+// ── INIT ─────────────────────────────────────────────────────────────────
+(function init() {
+  setupDayNav();
+  setupCatFilters();
+
+  // Set today's button active
+  const todayBtn = document.querySelector(`[data-day="${today}"]`);
+  if (todayBtn) todayBtn.classList.add("active");
+
+  updateResultsTitle();
+  window.renderCards();
+
+  // Override cat btn click to use window.renderCards
+  document.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeCat = btn.dataset.cat;
+      window.renderCards();
+    };
+  });
+
+  // Override day btn click to use window.renderCards
+  document.querySelectorAll(".day-btn").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".day-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeDay = btn.dataset.day;
+      searchQuery = "";
+      $("searchInput").value = "";
+      updateResultsTitle();
+      window.renderCards();
+    };
+  });
+
+  $("totalDeals").textContent = deals.filter(d => d.days.includes(today)).length;
+})();
+</script>
+</body>
+</html>
